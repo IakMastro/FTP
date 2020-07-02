@@ -8,13 +8,11 @@ import javafx.stage.Stage;
 
 public class Client extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent loginScreen = FXMLLoader.load(getClass().getResource("loginScreen.fxml"));
+    public void start(Stage primaryStage) throws Exception {
+        Parent loginScreen = FXMLLoader.load(getClass().getResource("../fxml/LoginScreen.fxml"));
         primaryStage.setTitle("FTP Client");
-        
-        Scene scene = new Scene(loginScreen, 300, 745);
-        
-        primaryStage.setScene(scene);
+
+        primaryStage.setScene(new Scene(loginScreen, 300, 250));
         primaryStage.show();
     }
 

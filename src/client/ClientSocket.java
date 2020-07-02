@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class ClientSocket {
-    private Socket socket = null;
-    private DataInputStream input = null;
-    private DataOutputStream output = null;
+    private Socket socket;
+    private DataInputStream input;
+    private DataOutputStream output;
 
     public ClientSocket(String address, int port) throws IOException {
         socket = new Socket(address, port);
@@ -28,4 +28,8 @@ public class ClientSocket {
         output.close();
         socket.close();
     }
+
+    public String getDirName() throws IOException { return input.readUTF(); }
+    
+    public String getDirContent() throws IOException { return input.readUTF(); }
 }

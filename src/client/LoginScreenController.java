@@ -1,14 +1,16 @@
 package client;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Controller {
+public class LoginScreenController {
     public ClientSocket clientSocket;
     public PasswordField passwordField;
     public TextField usernameField;
@@ -24,7 +26,19 @@ public class Controller {
                 alert.setContentText("Connected to the server");
                 alert.showAndWait().ifPresent(rs -> {
                     if (rs == ButtonType.OK) {
-                        //TODO: Change the scene
+                        Stage primaryStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                        Parent mainScreen;
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/MainScreen.fxml"));
+                            mainScreen = loader.load();
+                            primaryStage.setScene(new Scene(mainScreen));
+                            MainScreenController controller = loader.getController();
+                            controller.setClientSocket(clientSocket);
+                            controller.setContent();
+                        } catch (IOException e) {
+                            System.err.println("For whatever reason, the file 'DownloadScreen.fxml' was not found." +
+                                    " Please check the files and if it isn't there please reinstall.");
+                        }
                     }
                 });
             } else {
